@@ -1,0 +1,48 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.0.RELEASE'
+    id 'java'
+    id 'eclipse'
+    id "io.freefair.lombok" version "4.1.5"
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    all*.exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j-impl'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation "org.telegram:telegrambots:4.4.0.2"
+    implementation "org.telegram:telegrambots-abilities:4.4.0.2"
+    implementation "org.telegram:telegrambots-spring-boot-starter:4.4.0.2"
+    implementation "org.glassfish.jersey.bundles.repackaged:jersey-guava:2.6"
+
+    implementation 'com.google.protobuf:protobuf-java:3.11.0'
+    implementation group: 'com.google.protobuf', name: 'protobuf-java-util', version: '3.13.0'
+
+    implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.6.0'
+    implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.5.5.RELEASE'
+
+    compile fileTree(dir: 'src/main/resources/libs/', include: "*.jar")
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    testCompile 'org.powermock:powermock-api-mockito2:2.0.2'
+    testCompile 'org.powermock:powermock-module-junit4:2.0.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    testCompileOnly 'junit:junit:4.12' 
+	testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.3.1'
+}
+
+test {
+    useJUnitPlatform()
+}
